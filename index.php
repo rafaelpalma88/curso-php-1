@@ -1,31 +1,17 @@
 <?php
 
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
+/*ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);*/
 
 require "src/conexao-bd.php";
 require "src/Model/Product.php";
 require "src/Repository/ProductRepository.php";
 
 $produtosRepositorio = new ProductRepository($pdo);
-$dadosCafe = $produtosRepositorio->coffeeOptions($pdo);
-
-$sql2 = "SELECT * FROM produtos WHERE tipo = 'Almoço' ORDER BY preco";
-$statement = $pdo->query($sql2);
-$produtosAlmoco = $statement->fetchAll(PDO::FETCH_ASSOC);
+$dadosCafe = $produtosRepositorio->coffeeOptions();
+$dadosAlmoco = $produtosRepositorio->lunchOptions();
 
 $BASE_URL = 'http://localhost/curso-php-1/img/';
-
-$dadosAlmoco = array_map(function ($almoco) {
-    return new Product(
-        $almoco['id'],
-        $almoco['tipo'],
-        $almoco['nome'],
-        $almoco['descricao'],
-        $almoco['imagem'],
-        $almoco['preco']
-    );
-}, $produtosAlmoco);
 
 /*echo '<pre>';
 var_dump($produtosCafe);
