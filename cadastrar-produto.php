@@ -5,19 +5,23 @@ require "src/Model/Product.php";
 require "src/Repository/ProductRepository.php";
 
 if (isset($_POST['cadastrar'])) {
-    $tipo = $_POST['tipo'];
-    $nome = $_POST['nome'];
-    $descricao = $_POST['descricao'];
-    $preco = $_POST['preco'];
-    $imagem = $_POST['imagem'];
 
-    $newProduct = new Product(0, $tipo, $nome, $descricao, $preco, $imagem);
-    echo '<pre>';
+    $newProduct = new Product(
+        null,
+        $_POST['tipo'],
+        $_POST['nome'],
+        $_POST['descricao'],
+        $_POST['preco']
+    );
+
+    /*echo '<pre>';
     var_dump($newProduct);
-    echo '</pre>';
+    echo '</pre>';*/
 
-    //$produtosRepositorio = new ProductRepository($pdo);
-    //$produtosRepositorio->addItem($newProduct );
+    $produtosRepositorio = new ProductRepository($pdo);
+    $produtosRepositorio->addItem($newProduct);
+
+    header("Location: admin.php");
 }
 
 ?>

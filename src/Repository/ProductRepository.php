@@ -9,6 +9,18 @@ class ProductRepository
     $this->pdo = $pdo;
   }
 
+  public function createProductObj($dados): Product
+  {
+    return new Product(
+      $dados['id'],
+      $dados['tipo'],
+      $dados['nome'],
+      $dados['descricao'],
+      $dados['preco'],
+      $dados['imagem'],
+    );
+  }
+
   public function coffeeOptions(): array
   {
 
@@ -17,14 +29,7 @@ class ProductRepository
     $produtosCafe = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     $dadosCafe = array_map(function ($cafe) {
-      return new Product(
-        $cafe['id'],
-        $cafe['tipo'],
-        $cafe['nome'],
-        $cafe['descricao'],
-        $cafe['imagem'],
-        $cafe['preco']
-      );
+      return $this->createProductObj($cafe);
     }, $produtosCafe);
 
     return $dadosCafe;
@@ -37,15 +42,8 @@ class ProductRepository
     $statement = $this->pdo->query($sql1);
     $produtosAlmoco = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    $dadosAlmoco = array_map(function ($cafe) {
-      return new Product(
-        $cafe['id'],
-        $cafe['tipo'],
-        $cafe['nome'],
-        $cafe['descricao'],
-        $cafe['imagem'],
-        $cafe['preco']
-      );
+    $dadosAlmoco = array_map(function ($lunch) {
+      return $this->createProductObj($lunch);
     }, $produtosAlmoco);
 
     return $dadosAlmoco;
@@ -64,8 +62,8 @@ class ProductRepository
         $cafe['tipo'],
         $cafe['nome'],
         $cafe['descricao'],
+        $cafe['preco'],
         $cafe['imagem'],
-        $cafe['preco']
       );
     }, $produtosAll);
 
@@ -82,14 +80,32 @@ class ProductRepository
 
   }
 
-  /*public function addItem($item): void
+  public function addItem($product): void
   {
 
-    $sql4 = "DELETE FROM produtos WHERE id = ? LIMIT 1";
-    $statement = $this->pdo->prepare($sql4);
-    $statement->bindValue(1, $id);
+    $sql5 = "INSERT INTO produtos (tipo, nome, descricao, preco, imagem) VALUES (?, ?, ?, ?, ?)";
+    $statement = $this->pdo->prepare($sql5);
+    $statement->bindValue(1, $product->getTipo());
+    $statement->bindValue(2, $product->getNome());
+    $statement->bindValue(3, $product->getDescricao());
+    $statement->bindValue(4, $product->getPreco());
+    $statement->bindValue(5, $product->getImagem());
     $statement->execute();
 
-  }*/
+  }
+
+  public function getItemById(int $productId): Product
+  {
+
+    $sql6 = "SELECT * FROM produtos WHERE id = ? LIMIT 1";
+    $statement = $this->pdo->prepare($sql6);
+    $statement->bindValue(1, $productId);
+    $statement->execute();
+
+    $dados = $statement->fetch(PDO::FETCH_ASSOC);
+
+    return $this->createProductObj($dados);
+
+  }
 }
 
