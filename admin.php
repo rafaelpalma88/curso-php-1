@@ -54,47 +54,22 @@ $dadosAll = $produtosRepositorio->allOptions();
           <?php foreach ($dadosAll as $item): ?>
             <tr>
               <td><?php echo $item->getNome(); ?></td>
-              <td>Almoço</td>
-              <td>Delicioso prato</td>
-              <td>R$ 25.00</td>
-              <td><a class="botao-editar" href="editar-produto.html">Editar</a></td>
+              <td><?php echo $item->getTipo(); ?></td>
+              <td><?php echo $item->getDescricao(); ?></td>
+              <td><?php echo $item->getPrecoFormatado(); ?></td>
+              <td><a class="botao-editar" href="editar-produto.php?id=<?php echo $item->getId(); ?>">Editar</a></td>
               <td>
-                <form>
-                  <input type="button" class="botao-excluir" value="Excluir">
+                <form action="excluir-produto.php" method="post">
+                  <input type="hidden" name="id" value="<?php echo $item->getId(); ?>" />
+                  <input type="submit" class="botao-excluir" value="Excluir">
                 </form>
               </td>
 
             </tr>
           <?php endforeach; ?>
-
-
-          <tr>
-            <td>Frango</td>
-            <td>Almoço</td>
-            <td>Delicioso prato</td>
-            <td>R$ 25.00</td>
-            <td><a class="botao-editar" href="editar-produto.html">Editar</a></td>
-            <td>
-              <form>
-                <input type="button" class="botao-excluir" value="Excluir">
-              </form>
-            </td>
-          </tr>
-          <tr>
-            <td>Café Gelado</td>
-            <td>Café</td>
-            <td>Delicioso prato</td>
-            <td>R$ 25.00</td>
-            <td><a class="botao-editar" href="editar-produto.html">Editar</a></td>
-            <td>
-              <form>
-                <input type="button" class="botao-excluir" value="Excluir">
-              </form>
-            </td>
-          </tr>
         </tbody>
       </table>
-      <a class="botao-cadastrar" href="cadastrar-produto.html">Cadastrar produto</a>
+      <a class="botao-cadastrar" href="cadastrar-produto.php">Cadastrar produto</a>
       <form action="#" method="post">
         <input type="submit" class="botao-cadastrar" value="Baixar Relatório" />
       </form>

@@ -72,5 +72,24 @@ class ProductRepository
     return $dadosAll;
 
   }
+  public function removeItem(int $id): void
+  {
+
+    $sql4 = "DELETE FROM produtos WHERE id = ? LIMIT 1";
+    $statement = $this->pdo->prepare($sql4);
+    $statement->bindValue(1, $id);
+    $statement->execute();
+
+  }
+
+  /*public function addItem($item): void
+  {
+
+    $sql4 = "DELETE FROM produtos WHERE id = ? LIMIT 1";
+    $statement = $this->pdo->prepare($sql4);
+    $statement->bindValue(1, $id);
+    $statement->execute();
+
+  }*/
 }
 
