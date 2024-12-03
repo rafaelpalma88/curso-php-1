@@ -6,17 +6,25 @@ require "src/Repository/ProductRepository.php";
 
 if (isset($_POST['cadastrar'])) {
 
+    $precoSemFormato = str_replace(['.', ','], ['.', '.'], $_POST['preco']);
+
+    $precoConvertido = number_format(floatval($precoSemFormato), 2, '.', '');
+
     $newProduct = new Product(
         null,
         $_POST['tipo'],
         $_POST['nome'],
         $_POST['descricao'],
-        $_POST['preco']
+        $precoConvertido
     );
 
-    /*echo '<pre>';
-    var_dump($newProduct);
-    echo '</pre>';*/
+    if ($_FILES['imagem']['error'] == UPLOAD_ERR_OK) {
+
+        $newProduct->setImagem(uniqid() . $_FILES['imagem']['name']);
+
+        move_uploaded_file($_FILES['imagem']['tmp_name'], $newProduct->getImagemDiretorio());
+
+    }
 
     $produtosRepositorio = new ProductRepository($pdo);
     $produtosRepositorio->addItem($newProduct);
@@ -54,7 +62,7 @@ if (isset($_POST['cadastrar'])) {
             <img class="ornaments" src="img/ornaments-coffee.png" alt="ornaments">
         </section>
         <section class="container-form">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
 
                 <label for="nome">Nome</label>
                 <input type="text" id="nome" name="nome" placeholder="Digite o nome do produto" required>

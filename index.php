@@ -3,6 +3,7 @@
 /*ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);*/
 
+require_once "base-config.php";
 require "src/conexao-bd.php";
 require "src/Model/Product.php";
 require "src/Repository/ProductRepository.php";
@@ -11,7 +12,7 @@ $produtosRepositorio = new ProductRepository($pdo);
 $dadosCafe = $produtosRepositorio->coffeeOptions();
 $dadosAlmoco = $produtosRepositorio->lunchOptions();
 
-$BASE_URL = 'http://localhost/curso-php-1/img/';
+
 
 /*echo '<pre>';
 var_dump($produtosCafe);
@@ -103,11 +104,11 @@ $produtosAlmoco = [
                 <?php foreach ($dadosCafe as $cafe): ?>
                     <div class="container-produto">
                         <div class="container-foto">
-                            <img src="<?= $BASE_URL . $cafe->getImagem(); ?>">
+                            <img src="<?= BASE_URL . "img/uploads/" . $cafe->getImagem(); ?>">
                         </div>
                         <p><?= $cafe->getNome(); ?></p>
                         <p><?= $cafe->getDescricao(); ?></p>
-                        <p><?= $cafe->getPrecoFormatado(); ?></p>
+                        <p><?= $cafe->getPrecoFormatadoComReais(); ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -121,11 +122,11 @@ $produtosAlmoco = [
                 <?php foreach ($dadosAlmoco as $almoco): ?>
                     <div class="container-produto">
                         <div class="container-foto">
-                            <img src="<?= $BASE_URL . $almoco->getImagem(); ?>">
+                            <img src="<?= BASE_URL . "img/uploads/" . $almoco->getImagem(); ?>">
                         </div>
                         <p><?= $almoco->getNome(); ?></p>
                         <p><?= $almoco->getDescricao(); ?></p>
-                        <p><?= "R$" . number_format($almoco->getPreco(), 2) ?></p>
+                        <p><?= $almoco->getPrecoFormatadoComReais(); ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>

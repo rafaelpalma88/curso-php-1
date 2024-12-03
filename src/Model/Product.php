@@ -1,5 +1,7 @@
 <?php
 
+require_once "base-config.php";
+
 class Product
 {
   private ?int $id;
@@ -17,6 +19,11 @@ class Product
     $this->nome = $nome;
     $this->descricao = $descricao;
     $this->preco = $preco;
+    $this->imagem = $imagem;
+  }
+
+  public function setImagem(string $imagem): void
+  {
     $this->imagem = $imagem;
   }
 
@@ -45,13 +52,27 @@ class Product
     return $this->imagem;
   }
 
-  public function getPreco(): string
+  public function getImagemDiretorio(): string
+  {
+
+    $url = __DIR__ . "/../../img/uploads/" . $this->imagem;
+
+    return $url;
+
+  }
+
+  public function getPreco(): float
   {
     return $this->preco;
   }
 
   public function getPrecoFormatado(): string
   {
-    return "R$ " . number_format($this->preco, 2, ',', '.');
+    return number_format($this->preco, 2);
+  }
+
+  public function getPrecoFormatadoComReais(): string
+  {
+    return "R$" . " " . number_format($this->preco, 2, ',', '.');
   }
 }

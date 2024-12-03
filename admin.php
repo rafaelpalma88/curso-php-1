@@ -56,7 +56,7 @@ $dadosAll = $produtosRepositorio->allOptions();
               <td><?php echo $item->getNome(); ?></td>
               <td><?php echo $item->getTipo(); ?></td>
               <td><?php echo $item->getDescricao(); ?></td>
-              <td><?php echo $item->getPrecoFormatado(); ?></td>
+              <td><?php echo $item->getPrecoFormatadoComReais(); ?></td>
               <td><a class="botao-editar" href="editar-produto.php?id=<?php echo $item->getId(); ?>">Editar</a></td>
               <td>
                 <form action="excluir-produto.php" method="post">

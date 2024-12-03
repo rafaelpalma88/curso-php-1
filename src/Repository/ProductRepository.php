@@ -107,5 +107,33 @@ class ProductRepository
     return $this->createProductObj($dados);
 
   }
+  public function updateItem($product): void
+  {
+
+    $sql7 = "UPDATE produtos SET tipo = ?, nome = ? , descricao = ?, preco = ? , imagem = ? WHERE id = ?";
+    $statement = $this->pdo->prepare($sql7);
+    $statement->bindValue(1, $product->getTipo());
+    $statement->bindValue(2, $product->getNome());
+    $statement->bindValue(3, $product->getDescricao());
+    $statement->bindValue(4, $product->getPreco());
+    $statement->bindValue(5, $product->getImagem());
+    $statement->bindValue(6, $product->getId());
+    $statement->execute();
+
+    if ($product->getImagem() !== 'logo-serenatto.png') {
+
+      $this->atualizarFoto($product);
+    }
+
+  }
+
+  private function atualizarFoto(Product $product)
+  {
+    $sql = "UPDATE produtos SET imagem = ? WHERE id = ?";
+    $statement = $this->pdo->prepare($sql);
+    $statement->bindValue(1, $product->getImagem());
+    $statement->bindValue(2, $product->getId());
+    $statement->execute();
+  }
 }
 
