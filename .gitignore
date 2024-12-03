@@ -1,0 +1,47 @@
+# Dependências do Composer
+/vendor/
+
+/composer.lock
+
+# Arquivos de configuração locais
+/.env
+/.env.local
+/.env.*.local
+
+# Diretórios temporários e de cache
+/cache/
+/logs/
+/tmp/
+
+# Arquivos de upload ou gerados dinamicamente
+/img/uploads/*
+
+# Arquivos de IDEs e editores
+.idea/
+/.vscode/
+*.swp
+*.swo
+
+# Logs e debug
+*.log
+*.bak
+*.old
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+*.~lock.*
+*.~*
+._*
+
+# Arquivos de teste
+/phpunit.xml
+/phpunit.xml.dist
+/tests/_output/
+/tests/_support/_generated/
+
+# Outras exclusões comuns
+node_modules/
+npm-debug.log
+yarn-error.log
+*.local

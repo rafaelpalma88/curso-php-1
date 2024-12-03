@@ -22,14 +22,15 @@ if (isset($_POST['cadastrar'])) {
 
         $newProduct->setImagem(uniqid() . $_FILES['imagem']['name']);
 
-        move_uploaded_file($_FILES['imagem']['tmp_name'], $newProduct->getImagemDiretorio());
+        $teste = move_uploaded_file($_FILES['imagem']['tmp_name'], $newProduct->getImagemDiretorio());
 
+        var_dump($teste);
     }
 
     $produtosRepositorio = new ProductRepository($pdo);
     $produtosRepositorio->addItem($newProduct);
 
-    header("Location: admin.php");
+    //header("Location: admin.php");
 }
 
 ?>

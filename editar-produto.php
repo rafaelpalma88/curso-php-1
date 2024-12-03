@@ -15,12 +15,14 @@ if (isset($_POST['editar'])) {
 
     $currentProduct->setImagem(uniqid() . $_FILES['imagem']['name']);
 
-    move_uploaded_file($_FILES['imagem']['tmp_name'], $currentProduct->getImagemDiretorio());
+    $teste = move_uploaded_file($_FILES['imagem']['tmp_name'], $currentProduct->getImagemDiretorio());
+
+    var_dump($teste);
 
   }
 
   $produtosRepositorio->updateItem(($currentProduct));
-  header("Location: admin.php");
+  //header("Location: admin.php");
 
 }
 

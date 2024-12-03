@@ -55,7 +55,7 @@ class Product
   public function getImagemDiretorio(): string
   {
 
-    $url = __DIR__ . "/../../img/uploads/" . $this->imagem;
+    $url = $_SERVER['DOCUMENT_ROOT'] . "/curso-php-1/img/uploads/" . $this->imagem;
 
     return $url;
 
